@@ -2,8 +2,12 @@
 
 The main application is in ```/FlaskApp```, the requirements are specified in ```requirements.txt```
 
-The application aims to retireve ***only tweets with images*** that were published between a given timeframe.
+The application aims to retireve ***only tweets with images*** that were published, and liked by the target user, between a given timeframe.
 The application requires the usename and two dates as an input.
+
+Features:
+- Username, date, and link to the original tweet
+- Full image or carousel of images in case of multiple images.
 
 IMPORTANT: the application is not built for spying other Users' tweets likes/preferences( since it's possible to do it by default in the Twitter app), any abuse is the end user's responsibilty. 
 
