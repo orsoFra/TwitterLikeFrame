@@ -2,3 +2,4 @@ requests==2.26.0
 flask==1.1.2
 json5==0.9.6
 tweepy==4.4.0
+python-dotenv==0.20.0
