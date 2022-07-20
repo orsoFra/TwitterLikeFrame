@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <title>Twitter LikeTimeline</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+        <!-- CSS only -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    </head>
+    <body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+        <script  type="text/ javascript">
+            $ (document).ready( function() {
+            $ (“# datepicker”) .datepicker();
+            });
+            </script>
+        <div class="container-fluid">
+                <div class="header" style="text-align: center; background-color:deepskyblue;color: floralwhite;">
+                    <h3>Twitter LikeTimeline</h3>
+        </div>
+        <form action = "home" method = "POST">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" class="form-control" id="userInput" placeholder="Enter username" name="User" required>
+                <label for="startDate">Start Date</label>
+                <input id="startDate" class="form-control" type="date" name="startDate" required/>
+                <label for="endDate">End Date</label>
+                <input id="endDate" class="form-control" type="date" name="endDate" required/>
+
+            </div>
+
+            <button type="submit" class="btn btn-primary">See Likes</button>  
+            <!--<button type="submit" class="btn btn-primary">Get Followed</button>-->
+        </form>
+
+        <p>This application gives you the possibility to see a specific user's likes, in a specific time window.
+            Please do not abuse this tool.
+            Works best when using 30 days timeframe.
+        </p>
+    </body>
+</html>
