@@ -1,4 +1,4 @@
-# LikeTimeline
+# Twitter LikeFrame
 
 The main application is in ```/FlaskApp```, the requirements are specified in ```requirements.txt```
 
