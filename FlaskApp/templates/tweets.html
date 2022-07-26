@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Twitter LikeTimeline</title>
+        <title>TwitterFrame</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
  
@@ -15,18 +15,18 @@
             </script>
         <div class="container-fluid">
                 <div class="header" style="text-align: center; background-color:deepskyblue;color: floralwhite;">
-                    <h3>Twitter LikeFrame</h3>                
+                    <h3>TwitterFrame</h3>                   
                 </div>
                 <ul class="nav nav-pills justify-content-center">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Likes</a>
+                        <a class="nav-link" href="/">Likes</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link"  href="/tweets">Tweets</a>
+                        <a class="nav-link active" aria-current="page" href="#">Tweets</a>
                     </li>
                 </ul>
         <div>
-            <form action = "home" method = "POST">
+            <form action = "birds" method = "POST">
                 <div class="form-group">
                     <label>Username</label>
                     <input type="text" class="form-control" id="userInput" placeholder="Enter username" name="User" required>
@@ -36,11 +36,11 @@
                     <input id="endDate" class="form-control" type="date" name="endDate" required/>
                 </div>
 
-                <div class="text-center"><button type="submit" class="btn btn-primary">See Likes</button></div>  
+                <div class="text-center"><button type="submit" class="btn btn-primary">See Tweets</button></div>  
                 <!--<button type="submit" class="btn btn-primary">Get Followed</button>-->
             </form>
 
-            <p>This application gives you the possibility to see a specific user's likes, in a specific time window.
+            <p>This application gives you the possibility to see a specific user's tweets, in a specific time window.
                 Please do not abuse this tool.
                 Works best when using 30 days timeframe.
             </p>

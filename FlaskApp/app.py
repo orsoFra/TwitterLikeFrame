@@ -49,6 +49,11 @@ app = Flask(__name__)
 @app.route("/")
 def form():
     return render_template('form.html')
+@app.route("/tweets")
+def tweet():
+    return render_template('tweets.html')
+
+'''Method for getting likes'''
 
 @app.route("/home",methods=['POST','GET'])
 def home():
@@ -100,5 +105,58 @@ def home():
             #printed in case of(see content)
             data.append('<div class="row"><div class="col-sm-3"></div><div class="col-sm-6"><div class="text-center"><p>Some tweets exist, but they do not contain any images!</p></div></div><div class="col-sm-3"></div></div>')
     return render_template('index.html',data=data)
+
+'''Method for getting tweets'''
+@app.route("/birds",methods=['POST','GET'])
+def birds():
+    if(request.method == 'POST' or request.method == 'GET'):
+        #get data from the form 
+        username = request.form['User']
+        startDate=request.form['startDate']
+        endDate=request.form['endDate']
+        #get a dummy date which is the date prior to the start date
+        match = re.search('\d{4}-\d{2}-\d{2}', startDate)
+        dateDummy = datetime.datetime.strptime(match.group(), '%Y-%m-%d').date()
+        dateDummy = dateDummy + timedelta(days=-1)
+        #get a dummy date which is the date prior to the end date
+        match2 = re.search('\d{4}-\d{2}-\d{2}', endDate)
+        dateDummy2 = datetime.datetime.strptime(match2.group(), '%Y-%m-%d').date()
+        dateDummy2 = dateDummy2 + timedelta(days=-1)
+        #print(username)
+        '''print(startDate) #things for testing
+        print(endDate)
+        print(dateDummy)
+        print(dateDummy2)'''
+        #empty data list for storing the html content
+        data = [] 
+        #counter of the multi image tweets   
+        countCar=0
+        #if there's a text tweet
+        isTweet=True
+        #apply a filtering date after getting all the data needed ----- USING getTweetId with different dates because advanced search sucks
+        try:
+            for favorite in tweepy.Cursor(api.user_timeline, screen_name=username,since_id=getTweetId(str(dateDummy),startDate),max_id=getTweetId(str(dateDummy2),endDate)).items(150):
+                
+                if('media' in favorite.entities): #NB: the liked tweets get sorted by POSTING DATE NOT LIKING DATE  
+                    leng = len(favorite.extended_entities['media'])
+                    if(leng>1):#if it is a multi image tweet
+                        images=[]#list for storing the multiple images
+                        countCar+=1
+                        for i in range(0,leng,1):
+                            images.append(favorite.extended_entities['media'][i]['media_url'])#append the images to the list
+                        #print the carousel
+                        data.append(printCarousel(str(favorite.user.name),images,str(favorite.created_at.date()),countCar,favorite.id))
+                    else:
+                        #print the single image
+                        data.append(printImg(str(favorite.user.name),str(favorite.entities['media'][0]['media_url']),str(favorite.created_at.date()),favorite.id))
+                isTweet=False
+        except:
+            isTweet=False
+            data.append('<div class="row"><div class="col-sm-3"></div><div class="col-sm-6"><div class="text-center"><p>It appears that the username you requested does not exist, try another!</p></div></div><div class="col-sm-3"></div></div>')
+        if(len(data) == 0 and isTweet):
+            #printed in case of(see content)
+            data.append('<div class="row"><div class="col-sm-3"></div><div class="col-sm-6"><div class="text-center"><p>Some tweets exist, but they do not contain any images!</p></div></div><div class="col-sm-3"></div></div>')
+    return render_template('index.html',data=data)
+
 if __name__ == "__main__":
     app.run()
