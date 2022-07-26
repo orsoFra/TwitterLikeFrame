@@ -2,7 +2,10 @@
 
 The main application is in ```/FlaskApp```, the requirements are specified in ```requirements.txt```
 
-The application aims to retireve ***only tweets with images*** that were published, and liked by the target user, between a given timeframe.
+The application aims to retireve ***only tweets with images*** that:
+- were published by the target user, between a given timeframe. 
+- were liked by the target user, between a given timeframe.
+
 The application requires the usename and two dates as an input.
 
 Features:
