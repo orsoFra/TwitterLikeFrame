@@ -111,9 +111,18 @@ def home():
 def birds():
     if(request.method == 'POST' or request.method == 'GET'):
         #get data from the form 
+
         username = request.form['User']
         startDate=request.form['startDate']
         endDate=request.form['endDate']
+        if(request.form.get('isRetweet')):
+            isRetweet = True
+        else:
+            isRetweet = False
+        if(request.form.get('isReply')):
+            isReply = False
+        else:
+            isReply = True
         #get a dummy date which is the date prior to the start date
         match = re.search('\d{4}-\d{2}-\d{2}', startDate)
         dateDummy = datetime.datetime.strptime(match.group(), '%Y-%m-%d').date()
@@ -135,7 +144,7 @@ def birds():
         isTweet=True
         #apply a filtering date after getting all the data needed ----- USING getTweetId with different dates because advanced search sucks
         try:
-            for favorite in tweepy.Cursor(api.user_timeline, screen_name=username,since_id=getTweetId(str(dateDummy),startDate),max_id=getTweetId(str(dateDummy2),endDate)).items(150):
+            for favorite in tweepy.Cursor(api.user_timeline, screen_name=username,exclude_replies=isReply,include_rts=isRetweet,since_id=getTweetId(str(dateDummy),startDate),max_id=getTweetId(str(dateDummy2),endDate)).items(150):
                 
                 if('media' in favorite.entities): #NB: the liked tweets get sorted by POSTING DATE NOT LIKING DATE  
                     leng = len(favorite.extended_entities['media'])
